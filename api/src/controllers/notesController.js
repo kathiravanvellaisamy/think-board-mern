@@ -24,9 +24,15 @@ export const createNote = async (req, res) => {
 
 export const updateNote = async (req, res) => {
   try {
-    const updatedNote = await Note.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const { title, content } = req.body;
+    const updatedNote = await Note.findByIdAndUpdate(
+      req.params.id,
+      { title, content },
+      {
+        new: true,
+      }
+    );
+
     if (!updatedNote) {
       return res.status(404).json({ message: "Note not found!" });
     }
